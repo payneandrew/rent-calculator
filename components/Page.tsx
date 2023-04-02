@@ -1,14 +1,15 @@
 import Head from "next/head";
 import Title from "./Title";
+import Link from "next/link";
 
 export default function Page({ title, children }) {
   return (
     <>
-      <Head>
-        <title>{title}</title>
-      </Head>
+      <Head>{title}</Head>
       <main className="px-6 py-4">
-        <Title>{title}</Title>
+        <Title>
+          <Link href="/">{title}</Link>
+        </Title>
         {children}
       </main>
     </>

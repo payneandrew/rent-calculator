@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Button from "./Button";
 import { useRouter } from "next/router";
+import Input from "./Input";
 
-export default function FormComponent() {
+export default function FormComponent({ rooms }) {
   const router = useRouter();
   const [totalRentAmount, setTotalRentAmount] = useState("");
   const [rooms, setRooms] = useState(2);
@@ -18,11 +19,11 @@ export default function FormComponent() {
     <form onSubmit={handleSubmit}>
       <label>
         Enter the total rent: $
-        <input
+        <Input
           type="number"
           value={totalRentAmount}
           onChange={(event) => setTotalRentAmount(event.target.value)}
-        />
+        ></Input>
       </label>
       <br />
       <label>
