@@ -8,10 +8,11 @@ import { useRouter } from "next/router";
 
 export default function Home() {
   const router = useRouter();
+  const maxRooms = [2, 3, 4, 5, 6, 7, 8];
 
   return (
     <Page title="Rent Calculator">
-      <FormComponent></FormComponent>
+      <FormComponent selectorValues={maxRooms}></FormComponent>
     </Page>
   );
 }

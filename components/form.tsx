@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import Button from "./Button";
 import { useRouter } from "next/router";
 import Input from "./Input";
+import Select from "./Select";
+import { useNavigate } from "react-router-dom";
 
-export default function FormComponent({ rooms }) {
+export default function FormComponent({ selectorValues }) {
   const router = useRouter();
   const [totalRentAmount, setTotalRentAmount] = useState("");
   const [rooms, setRooms] = useState(2);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    router.push("/room-details");
+    router.push({ pathname: "/room-details", query: { rooms: rooms } });
     console.log("totalRentAmount", totalRentAmount);
     console.log("rooms", rooms);
   };
@@ -28,18 +30,11 @@ export default function FormComponent({ rooms }) {
       <br />
       <label>
         Number of rooms:
-        <select
+        <Select
           value={rooms}
           onChange={(event) => setRooms(parseInt(event.target.value))}
-        >
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-        </select>
+          options={selectorValues}
+        ></Select>
       </label>
       <br />
       <p></p>

@@ -9,8 +9,8 @@ const roomCountArray = Array.from(
   (_, index) => index + 1
 );
 
-export default function RoomDetailsPage(props) {
-  console.log("props", props.totalRentAmount);
+export default function RoomDetailsPage() {
+  console.log("props");
   return (
     <Page title="Rent Calculator">
       <div>Room Details</div>

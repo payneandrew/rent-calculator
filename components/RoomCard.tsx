@@ -1,5 +1,5 @@
 import Image from "next/image";
-import CheckboxComponent from "./CheckBoxes";
+import CheckboxComponent from "./CheckBox";
 import Input from "./Input";
 
 export default function RoomCard() {
