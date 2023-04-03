@@ -12,11 +12,12 @@ export default function Home() {
   const [totalRentAmount, setTotalRentAmount] = useState("");
   const [rooms, setRooms] = useState(2);
 
-  //const ClickContext = createContext(0, () => {});
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    router.push({ pathname: "/room-details", search: `?rooms=${rooms}` });
+    router.push({
+      pathname: "/room-details",
+      query: { rooms: rooms },
+    });
     console.log("totalRentAmount", totalRentAmount);
     console.log("rooms", rooms);
   };

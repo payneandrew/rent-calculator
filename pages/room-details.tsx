@@ -2,17 +2,15 @@ import Input from "@/components/Input";
 import Page from "@/components/Page";
 import RoomCard from "@/components/RoomCard";
 import React from "react";
-import { useLocation } from "react-router-dom";
-import qs from "qs";
-
-const roomCount = 5;
-const roomCountArray = Array.from(
-  { length: roomCount },
-  (_, index) => index + 1
-);
+import { useRouter } from "next/router";
 
 export default function RoomDetailsPage() {
-  // console.log("Rent details page", rooms);
+  const router = useRouter();
+  const { rooms } = router.query;
+  const roomCountArray = Array.from(
+    { length: parseInt(rooms) },
+    (_, index) => index + 1
+  );
 
   return (
     <Page title="Rent Calculator">
