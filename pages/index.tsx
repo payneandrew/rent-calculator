@@ -1,6 +1,6 @@
 import Page from "@/components/Page";
 import { useRouter } from "next/router";
-import Input from "@/components/Input";
+import Input from "@/components/Input/Input";
 import Button from "@/components/Button";
 import { FormEvent, useState, createContext } from "react";
 import Select from "@/components/Select";
@@ -9,24 +9,22 @@ import Link from "next/link";
 export default function Home() {
   const router = useRouter();
   const maxRooms = [2, 3, 4, 5, 6, 7, 8];
-  const [totalRentAmount, setTotalRentAmount] = useState("");
   const [rooms, setRooms] = useState(2);
+  const [totalRentAmount, setTotalRentAmount] = useState("");
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     router.push({
       pathname: "/room-details",
-      query: { rooms: rooms },
+      query: { rooms: rooms, totalRentAmount: totalRentAmount },
     });
-    console.log("totalRentAmount", totalRentAmount);
-    console.log("rooms", rooms);
   };
 
   return (
     <Page title="Rent Calculator">
       <form onSubmit={handleSubmit}>
         <label>
-          Enter the total rent: $
+          Enter the total rent: ${" "}
           <Input
             type="number"
             value={totalRentAmount}

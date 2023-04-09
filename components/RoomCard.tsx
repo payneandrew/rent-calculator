@@ -1,72 +1,49 @@
-import Checkbox from "./Checkbox";
-import Input from "./Input";
+import CheckboxGroup from "./CheckboxGroup";
+import Checkbox from "./CheckboxGroup";
 import { useState } from "react";
+import Input from "./Input/Input";
+import { NumberLiteralType } from "typescript";
 
-export default function RoomCard(props) {
-  const [checkboxValues, setCheckboxValues] = useState({
-    checkbox1: false,
-    checkbox2: false,
-    checkbox3: false,
-    checkbox4: false,
-    checkbox5: false,
-  });
-  const [selectedOption, setSelectedOption] = useState(null);
-  function handleCheckboxChange(index, isChecked) {
-    setSelectedOption(isChecked ? index : null);
-  }
+const checkboxes = [
+  { label: "Tiny", value: "option1" },
+  { label: "Small", value: "option2" },
+  { label: "Medium", value: "option3" },
+  { label: "Large", value: "option4" },
+  { label: "Extra Large", value: "option5" },
+];
 
+interface RoomCardProps {
+  totalRentAmount: number;
+  rooms: number;
+}
+
+const RoomCard: React.FC<RoomCardProps> = ({ totalRentAmount, rooms }) => {
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden m-4 md:w-1/2 lg:w-1/3">
       <div className="p-6">
         <ul className="text-gray-700">
           <li>
             <label>
-              Room Name
-              <Input type="text" value={null} onChange={null}></Input>
+              <span className="pr-2">Room Name</span>
+              <Input type="text"></Input>
             </label>
           </li>
           <li>
             <div className="flex flex-col space-y-4">
               <h1 className="font-bold">Room Size</h1>
               <label className="flex items-center space-x-2">
-                <Checkbox
-                  isChecked={selectedOption === 1}
-                  onChange={(isChecked) => handleCheckboxChange(1, isChecked)}
-                />
-                <span>Tiny</span>
-              </label>
-              <label className="flex items-center space-x-2">
-                <Checkbox
-                  isChecked={selectedOption === 2}
-                  onChange={(isChecked) => handleCheckboxChange(2, isChecked)}
-                />
-                <span>Small</span>
-              </label>
-              <label className="flex items-center space-x-2">
-                <Checkbox
-                  isChecked={selectedOption === 3}
-                  onChange={(isChecked) => handleCheckboxChange(3, isChecked)}
-                />
-                <span>Medium</span>
-              </label>
-              <label className="flex items-center space-x-2">
-                <Checkbox
-                  isChecked={selectedOption === 4}
-                  onChange={(isChecked) => handleCheckboxChange(4, isChecked)}
-                />
-                <span>Large</span>
-              </label>
-              <label className="flex items-center space-x-2">
-                <Checkbox
-                  isChecked={selectedOption === 5}
-                  onChange={(isChecked) => handleCheckboxChange(5, isChecked)}
-                />
-                <span>Extra Large</span>
+                <CheckboxGroup options={checkboxes} />
               </label>
             </div>
+          </li>
+          <li className="pt-2">
+            <span className="pr-2">Cost:</span>
+            <label>{`$${totalRentAmount / rooms}`}</label>
           </li>
         </ul>
       </div>
     </div>
   );
-}
+};
+
+export default RoomCard;
