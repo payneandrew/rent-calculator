@@ -47,7 +47,7 @@ export default function RentByLocation() {
       <form onSubmit={handleSubmit}>
         <label>
           <span className="pr-2">Enter your zip code</span>
-          <input type="text" name="zipCode"></input>
+          <Input type="text"></Input>
         </label>
         <button type="submit">Submit</button>
         <div>

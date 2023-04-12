@@ -1,7 +1,7 @@
 interface InputProps {
-  value: string;
+  value?: string;
   type: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input: React.FC<InputProps> = ({ value, onChange, type }) => {
