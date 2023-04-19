@@ -3,14 +3,35 @@ import Checkbox from "./CheckboxGroup";
 import { useState } from "react";
 import Input from "./Input/Input";
 import { NumberLiteralType } from "typescript";
+import { calculateRentPerSquareFoot } from "@/utils/helpers/calculateRentPerSquareFoot";
 
 const checkboxes = [
-  { label: "Tiny", value: "option1" },
-  { label: "Small", value: "option2" },
-  { label: "Medium", value: "option3" },
-  { label: "Large", value: "option4" },
-  { label: "Extra Large", value: "option5" },
+  { label: "Tiny (50 sq ft)", value: "50" },
+  { label: "Small (65 sq ft)", value: "65" },
+  { label: "A bit Small (80 sq ft)", value: "80" },
+  { label: "Medium (100 sq ft)", value: "100" },
+  { label: "Generous (125 sq ft)", value: "125" },
+  { label: "Large (160 sq ft)", value: "160" },
+  { label: "Enormous (200 sq ft)", value: "200" },
 ];
+
+const roomSizeOptions = [
+  { label: "Tiny (50 sq ft)", value: 50 },
+  { label: "Small (65 sq ft)", value: 65 },
+  { label: "A bit Small (80 sq ft)", value: 80 },
+  { label: "Medium (100 sq ft)", value: 100 },
+  { label: "Generous (125 sq ft)", value: 125 },
+  { label: "Large (160 sq ft)", value: 160 },
+  { label: "Enormous (200 sq ft)", value: 200 },
+];
+
+const selectedOptions = [
+  { roomSize: 100, roomName: "Henry" },
+  { roomSize: 200, roomName: "John" },
+  { roomSize: 160, roomName: "Henry" },
+];
+
+calculateRentPerSquareFoot(selectedOptions, 4000);
 
 interface RoomCardProps {
   totalRentAmount: number;
