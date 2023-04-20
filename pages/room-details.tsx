@@ -18,7 +18,7 @@ export default function RoomDetailsPage() {
     console.log("submit clicked");
   };
 
-  // create an object that contains the size of each room and name of each room upon saving
+  // create an object that contains the size of each room and name of each room upon submitting the form
   return (
     <Page title="Rent Calculator">
       <div>Room Details</div>

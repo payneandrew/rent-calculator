@@ -25,6 +25,7 @@ const roomSizeOptions = [
   { label: "Enormous (200 sq ft)", value: 200 },
 ];
 
+// this an example of what I want the data to look like when the form is submitted
 const selectedOptions = [
   { roomSize: 100, roomName: "Henry" },
   { roomSize: 200, roomName: "John" },

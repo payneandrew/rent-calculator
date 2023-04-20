@@ -34,12 +34,6 @@ export default function RentByLocation() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const zipCodeInputElement = event.currentTarget.elements.namedItem(
-      "zipCode"
-    ) as HTMLInputElement;
-    const zipCode = zipCodeInputElement.value;
-    setZipCode(zipCode);
-    console.log(zipCode);
   };
 
   return (
@@ -47,11 +41,17 @@ export default function RentByLocation() {
       <form onSubmit={handleSubmit}>
         <label>
           <span className="pr-2">Enter your zip code</span>
-          <Input type="text"></Input>
+          <Input
+            type="text"
+            onChange={(e) => setZipCode(e.target.value)}
+          ></Input>
         </label>
         <button type="submit">Submit</button>
         <div>
-          <label>{`$${averageRent}`}</label>
+          <label>{`Average Rent: $${averageRent}`}</label>
+        </div>
+        <div>
+          <label>{`Walk Score: `}</label>
         </div>
       </form>
     </Page>
