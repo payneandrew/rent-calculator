@@ -1,31 +1,36 @@
-import Input from "@/components/Input/Input";
 import Page from "@/components/Page";
 import RoomCard from "@/components/RoomCard";
-import React, { useState } from "react";
 import { useRouter } from "next/router";
-import Button from "@/components/Button";
+import { useState } from "react";
 
 export default function RoomDetailsPage() {
   const router = useRouter();
   const { rooms: numberOfRooms, totalRentAmount } = router.query;
 
-  const roomDetails = { costPerRoom: 0, roomName: "", roomSize: "100" };
-  const rooms = [];
+  const rooms = new Array(Number(numberOfRooms)).fill({
+    costPerRoom: Number(totalRentAmount) / Number(numberOfRooms),
+    roomName: "",
+    roomSize: "100",
+  });
 
-  for (let i = 0; i < Number(numberOfRooms); i++) {
-    rooms.push(roomDetails);
-  }
+  const [roomProps, setRoomProps] = useState(rooms);
 
-  rooms.forEach(
-    (room) => (room.costPerRoom = Number(totalRentAmount) / rooms.length)
-  );
+  const updateRoomProps = () => {
+    setRoomProps();
+  };
+  // call set rooms props with the updated array we get from roomcard
 
   return (
     <Page title="Rent Calculator">
       <div>Room Details</div>
       <div className="flex flex-wrap justify-center">
-        {rooms.map(({ costPerRoom, roomName, roomSize }) => (
-          <RoomCard size={roomSize} name={roomName} cost={costPerRoom} />
+        {roomProps.map(({ costPerRoom, roomName, roomSize }) => (
+          <RoomCard
+            size={roomSize}
+            name={roomName}
+            cost={costPerRoom}
+            handleChange={updateRoomProps}
+          />
         ))}
       </div>
     </Page>

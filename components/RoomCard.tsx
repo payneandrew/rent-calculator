@@ -1,9 +1,4 @@
-import CheckboxGroup from "./RadioGroup";
-import Checkbox from "./RadioGroup";
-import { useState } from "react";
 import Input from "./Input/Input";
-import { NumberLiteralType } from "typescript";
-import { calculateRentPerSquareFoot } from "@/utils/helpers/calculateRentPerSquareFoot";
 import RadioGroup from "./RadioGroup";
 
 const checkboxes = [
@@ -16,19 +11,29 @@ const checkboxes = [
   { label: "Enormous (200 sq ft)", value: "200" },
 ];
 
+interface HandleChangeProps {
+  name?: string;
+  size?: string;
+}
 interface RoomCardProps {
   name: string;
   cost: number;
   size: string;
+  handleChange: (props: HandleChangeProps) => void;
 }
 
-const RoomCard: React.FC<RoomCardProps> = ({ size, name, cost }) => {
-  const [selectedOption, setSelectedOption] = useState(size);
+const RoomCard: React.FC<RoomCardProps> = ({
+  size,
+  name,
+  cost,
+  handleChange,
+}) => {
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    handleChange({ name: event.target.value });
+  };
 
-  const handleRadioButtonChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setSelectedOption(event.target.value);
+  const handleSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    handleChange({ size: event.target.value });
   };
 
   return (
@@ -38,7 +43,11 @@ const RoomCard: React.FC<RoomCardProps> = ({ size, name, cost }) => {
           <li>
             <label>
               <span className="pr-2">Room Name</span>
-              <Input type="text" value={name}></Input>
+              <Input
+                type="text"
+                value={name}
+                onChange={handleNameChange}
+              ></Input>
             </label>
           </li>
           <li>
@@ -47,8 +56,8 @@ const RoomCard: React.FC<RoomCardProps> = ({ size, name, cost }) => {
               <label className="flex items-center space-x-2">
                 <RadioGroup
                   options={checkboxes}
-                  value={selectedOption}
-                  handleChange={handleRadioButtonChange}
+                  value={size}
+                  handleChange={handleSizeChange}
                 />
               </label>
             </div>
