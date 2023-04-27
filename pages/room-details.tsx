@@ -15,6 +15,7 @@ export default function RoomDetailsPage() {
 
   const [roomProps, setRoomProps] = useState(rooms);
 
+  // create an interface for the updatedData
   const updateRoomProps = (updatedData: any, index: number) => {
     const updatedRoomProps = [...roomProps];
     updatedRoomProps[index] = { ...updatedRoomProps[index], ...updatedData };

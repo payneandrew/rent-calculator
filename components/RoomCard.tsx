@@ -37,8 +37,6 @@ const RoomCard: React.FC<RoomCardProps> = ({
     handleChange({ roomSize: event.target.value });
   };
 
-  //console.log(size, name, cost);
-
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden m-4 md:w-1/2 lg:w-1/3">
       <div className="p-6">
