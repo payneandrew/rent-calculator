@@ -11,30 +11,33 @@ const checkboxes = [
   { label: "Enormous (200 sq ft)", value: "200" },
 ];
 
+// move this interface to be a global interface
 interface HandleChangeProps {
-  name?: string;
-  size?: string;
+  roomName?: string;
+  roomSize?: string;
 }
 interface RoomCardProps {
-  name: string;
-  cost: number;
-  size: string;
+  roomName: string;
+  roomCost: number;
+  roomSize: string;
   handleChange: (props: HandleChangeProps) => void;
 }
 
 const RoomCard: React.FC<RoomCardProps> = ({
-  size,
-  name,
-  cost,
+  roomSize,
+  roomName,
+  roomCost,
   handleChange,
 }) => {
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange({ name: event.target.value });
+    handleChange({ roomName: event.target.value });
   };
 
   const handleSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange({ size: event.target.value });
+    handleChange({ roomSize: event.target.value });
   };
+
+  //console.log(size, name, cost);
 
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden m-4 md:w-1/2 lg:w-1/3">
@@ -45,7 +48,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
               <span className="pr-2">Room Name</span>
               <Input
                 type="text"
-                value={name}
+                value={roomName}
                 onChange={handleNameChange}
               ></Input>
             </label>
@@ -56,7 +59,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
               <label className="flex items-center space-x-2">
                 <RadioGroup
                   options={checkboxes}
-                  value={size}
+                  value={roomSize}
                   handleChange={handleSizeChange}
                 />
               </label>
@@ -64,7 +67,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
           </li>
           <li className="pt-2">
             <span className="pr-2">Cost:</span>
-            <label>{`$${cost}`}</label>
+            <label>{`$${roomCost}`}</label>
           </li>
         </ul>
       </div>

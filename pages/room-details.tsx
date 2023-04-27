@@ -15,21 +15,25 @@ export default function RoomDetailsPage() {
 
   const [roomProps, setRoomProps] = useState(rooms);
 
-  const updateRoomProps = () => {
-    setRoomProps();
+  const updateRoomProps = (updatedData: any, index: number) => {
+    const updatedRoomProps = [...roomProps];
+    updatedRoomProps[index] = { ...updatedRoomProps[index], ...updatedData };
+    setRoomProps(updatedRoomProps);
   };
-  // call set rooms props with the updated array we get from roomcard
+
+  console.log(roomProps);
 
   return (
     <Page title="Rent Calculator">
       <div>Room Details</div>
       <div className="flex flex-wrap justify-center">
-        {roomProps.map(({ costPerRoom, roomName, roomSize }) => (
+        {roomProps.map(({ costPerRoom, roomName, roomSize }, index) => (
+          // eslint-disable-next-line react/jsx-key
           <RoomCard
-            size={roomSize}
-            name={roomName}
-            cost={costPerRoom}
-            handleChange={updateRoomProps}
+            roomSize={roomSize}
+            roomName={roomName}
+            roomCost={costPerRoom}
+            handleChange={(updatedData) => updateRoomProps(updatedData, index)}
           />
         ))}
       </div>
