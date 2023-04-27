@@ -2,23 +2,23 @@ import Input from "./Input/Input";
 import RadioGroup from "./RadioGroup";
 
 const checkboxes = [
-  { label: "Tiny (50 sq ft)", value: "50" },
-  { label: "Small (65 sq ft)", value: "65" },
-  { label: "A bit Small (80 sq ft)", value: "80" },
-  { label: "Medium (100 sq ft)", value: "100" },
-  { label: "Generous (125 sq ft)", value: "125" },
-  { label: "Large (160 sq ft)", value: "160" },
-  { label: "Enormous (200 sq ft)", value: "200" },
+  { label: "Tiny (50 sq ft)", value: 50 },
+  { label: "Small (65 sq ft)", value: 65 },
+  { label: "A bit Small (80 sq ft)", value: 80 },
+  { label: "Medium (100 sq ft)", value: 100 },
+  { label: "Generous (125 sq ft)", value: 125 },
+  { label: "Large (160 sq ft)", value: 160 },
+  { label: "Enormous (200 sq ft)", value: 200 },
 ];
 
 interface HandleChangeProps {
   name?: string;
-  size?: string;
+  size?: number;
 }
 interface RoomCardProps {
   name: string;
   cost: number;
-  size: string;
+  size: number;
   handleChange: (props: HandleChangeProps) => void;
 }
 
@@ -33,7 +33,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
   };
 
   const handleSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange({ size: event.target.value });
+    handleChange({ size: event.target.valueAsNumber });
   };
 
   return (

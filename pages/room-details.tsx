@@ -10,7 +10,7 @@ export default function RoomDetailsPage() {
   const rooms = new Array(Number(numberOfRooms)).fill({
     costPerRoom: Number(totalRentAmount) / Number(numberOfRooms),
     roomName: "",
-    roomSize: "100",
+    roomSize: 100,
   });
 
   const [roomProps, setRoomProps] = useState(rooms);
