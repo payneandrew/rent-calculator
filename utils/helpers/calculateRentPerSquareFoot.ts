@@ -1,3 +1,5 @@
+import { RoomsProps } from "@/types/rooms";
+
 interface calculateRentProps {
   roomSize: number;
   roomName: string;
@@ -15,4 +17,12 @@ export const calculateRentPerSquareFoot = (
     });
   const rentPerSquareFoot = totalRentAmount / totalSquareFootage;
   console.log("Rent per square foot", rentPerSquareFoot);
+};
+
+export const calculateTotalSquareFootage = (rooms: RoomsProps[]) => {
+  return rooms
+    .map((room) => Number(room.roomSize))
+    .reduce(function (a, b) {
+      return a + b;
+    });
 };
