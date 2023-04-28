@@ -18,7 +18,7 @@ export default function RoomDetailsPage() {
     roomSize: 100,
   });
 
-  const [rooms, setRooms] = useState(intialRooms);
+  const [rooms, setRoomProps] = useState(intialRooms);
 
   const { totalSquareFootage, roomWithUpdatedRent } = useMemo(() => {
     const totalSquareFootage = calculateTotalSquareFootage(rooms);
@@ -29,10 +29,10 @@ export default function RoomDetailsPage() {
     return { totalSquareFootage, roomWithUpdatedRent };
   }, [rooms, totalRentAmount]);
 
-  const updateRoom = (updatedData: RoomUpdateProps, roomId: number) => {
-    const updatedRooms = [...rooms];
-    updatedRooms[roomId] = { ...updatedRooms[roomId], ...updatedData };
-    setRooms(updatedRooms);
+  const updateRoom = (updatedData: RoomUpdateProps, index: number) => {
+    const updatedRoomProps = [...rooms];
+    updatedRoomProps[index] = { ...updatedRoomProps[index], ...updatedData };
+    setRoomProps(updatedRoomProps);
   };
 
   return (
@@ -45,7 +45,7 @@ export default function RoomDetailsPage() {
       <div className="flex flex-wrap justify-center">
         {roomWithUpdatedRent.map(({ roomCost, roomName, roomSize }, roomId) => (
           <RoomCard
-            key={`${roomName}-${roomId}`}
+            key={roomId}
             roomSize={roomSize}
             roomName={roomName}
             roomCost={roomCost}
