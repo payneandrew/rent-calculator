@@ -1,6 +1,10 @@
 import NavBar from "./NavBar";
 
-export default function Page({ children }) {
+interface PageProps {
+  children: any;
+}
+
+export default function Page({ children }: PageProps) {
   return (
     <>
       <main className="px-6 py-4">
