@@ -12,7 +12,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
   handleChange,
 }) => {
   return (
-    <div className="flex flex-col space-y-2">
+    <div className="flex flex-col space-y-2 mt-2">
       {options.map((option) => (
         <label key={option.value} className="inline-flex items-center">
           <input

@@ -20,7 +20,7 @@ export default function Home() {
   };
 
   return (
-    <Page title="Rent Calculator">
+    <Page>
       <form onSubmit={handleSubmit}>
         <label>
           Enter the total rent: ${" "}

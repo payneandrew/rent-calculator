@@ -36,34 +36,24 @@ const RoomCard: React.FC<RoomCardProps> = ({
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden m-4 md:w-1/2 lg:w-1/3">
       <div className="p-6">
-        <ul className="text-gray-700">
-          <li>
-            <label>
-              <span className="pr-2">Room Name</span>
-              <Input
-                type="text"
-                value={roomName}
-                onChange={handleNameChange}
-              ></Input>
-            </label>
-          </li>
-          <li>
-            <div className="flex flex-col space-y-4">
-              <h1 className="font-bold">Room Size</h1>
-              <label className="flex items-center space-x-2">
-                <RadioGroup
-                  options={checkboxes}
-                  value={roomSize}
-                  handleChange={handleSizeChange}
-                />
-              </label>
-            </div>
-          </li>
-          <li className="pt-2">
-            <span className="pr-2">Cost:</span>
-            <label>{`$${roomCost.toFixed(2)}`}</label>
-          </li>
-        </ul>
+        <div className="flex flex-col space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="font-bold text-lg">Room Name</h2>
+            <Input type="text" value={roomName} onChange={handleNameChange} />
+          </div>
+          <div className="flex flex-col">
+            <h2 className="font-bold text-lg">Room Size</h2>
+            <RadioGroup
+              options={checkboxes}
+              value={roomSize}
+              handleChange={handleSizeChange}
+            />
+          </div>
+          <div className="flex justify-between">
+            <h2 className="font-bold text-lg">Cost</h2>
+            <span className="text-gray-700">{`$${roomCost.toFixed(2)}`}</span>
+          </div>
+        </div>
       </div>
     </div>
   );

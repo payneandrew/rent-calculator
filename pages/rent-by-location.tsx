@@ -37,7 +37,7 @@ export default function RentByLocation() {
   };
 
   return (
-    <Page title="Rent By Location">
+    <Page>
       <form onSubmit={handleSubmit}>
         <label>
           <span className="pr-2">Enter your zip code</span>
