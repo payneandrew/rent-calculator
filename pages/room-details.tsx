@@ -8,15 +8,16 @@ import { useMemo, useState } from "react";
 export default function RoomDetailsPage() {
   const router = useRouter();
   const { rooms: numberOfRoomsString, totalRentAmountQuery } = router.query;
-
+  let intialRooms = [];
   const totalRentAmount = Number(totalRentAmountQuery);
   const numberOfRooms = Number(numberOfRoomsString);
-
-  const intialRooms = new Array(numberOfRooms).fill({
-    roomCost: totalRentAmount / numberOfRooms,
-    roomName: "",
-    roomSize: 100,
-  });
+  if (numberOfRoomsString !== undefined) {
+    intialRooms = new Array(numberOfRooms).fill({
+      roomCost: totalRentAmount / numberOfRooms,
+      roomName: "",
+      roomSize: 100,
+    });
+  }
 
   const [rooms, setRoomProps] = useState(intialRooms);
 

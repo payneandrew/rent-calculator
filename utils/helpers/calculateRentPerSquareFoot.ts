@@ -24,5 +24,5 @@ export const calculateTotalSquareFootage = (rooms: RoomsProps[]) => {
     .map((room) => Number(room.roomSize))
     .reduce(function (a, b) {
       return a + b;
-    });
+    }, 0);
 };
