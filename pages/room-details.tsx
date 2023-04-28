@@ -15,7 +15,7 @@ export default function RoomDetailsPage() {
   const rooms = new Array(numberOfRooms).fill({
     roomCost: totalRentAmount / numberOfRooms,
     roomName: "",
-    roomSize: "100",
+    roomSize: 100,
   });
 
   const [roomProps, setRoomProps] = useState(rooms);
@@ -24,7 +24,7 @@ export default function RoomDetailsPage() {
     const totalSquareFootage = calculateTotalSquareFootage(roomProps);
     const roomPropsWithTotalRent = roomProps.map((room) => ({
       ...room,
-      roomCost: (totalRentAmount * Number(room.roomSize)) / totalSquareFootage,
+      roomCost: (totalRentAmount * room.roomSize) / totalSquareFootage,
     }));
     return { totalSquareFootage, roomPropsWithTotalRent };
   }, [roomProps, totalRentAmount]);
@@ -38,6 +38,10 @@ export default function RoomDetailsPage() {
   return (
     <Page title="Rent Calculator">
       <div>Room Details</div>
+      <div className="flex flex-wrap justify-center">{`Total Square Footage: ${totalSquareFootage}`}</div>
+      <div className="flex flex-wrap justify-center">{`Total Cost: $${totalRentAmount.toFixed(
+        2
+      )}`}</div>
       <div className="flex flex-wrap justify-center">
         {roomPropsWithTotalRent.map(
           ({ roomCost, roomName, roomSize }, index) => (
@@ -53,10 +57,6 @@ export default function RoomDetailsPage() {
           )
         )}
       </div>
-      <div className="flex flex-wrap justify-center">{`Total Square Footage: ${totalSquareFootage}`}</div>
-      <div className="flex flex-wrap justify-center">{`Total Cost: ${totalRentAmount.toFixed(
-        2
-      )}`}</div>
     </Page>
   );
 }

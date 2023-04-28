@@ -1,10 +1,10 @@
 export interface RoomUpdateProps {
   roomName?: string;
-  roomSize?: string;
+  roomSize?: number;
 }
 
 export interface RoomsProps {
   roomName: string;
   roomCost: number;
-  roomSize: string;
+  roomSize: number;
 }
