@@ -1,10 +1,9 @@
-import Page from "@/components/Page";
-import { useRouter } from "next/router";
-import Input from "@/components/Input/Input";
 import Button from "@/components/Button";
-import { FormEvent, useState, createContext } from "react";
+import Input from "@/components/Input/Input";
+import Page from "@/components/Page";
 import Select from "@/components/Select";
-import Link from "next/link";
+import { useRouter } from "next/router";
+import { FormEvent, useState } from "react";
 
 export default function Home() {
   const router = useRouter();
@@ -16,7 +15,7 @@ export default function Home() {
     event.preventDefault();
     router.push({
       pathname: "/room-details",
-      query: { rooms: rooms, totalRentAmount: totalRentAmount },
+      query: { rooms: rooms, totalRentAmountQuery: totalRentAmount },
     });
   };
 

@@ -1,74 +1,62 @@
 import Page from "@/components/Page";
 import RoomCard from "@/components/RoomCard";
-import { RoomUpdateProps, RoomsProps } from "@/types/rooms";
+import { RoomUpdateProps } from "@/types/rooms";
 import { calculateTotalSquareFootage } from "@/utils/helpers/calculateRentPerSquareFoot";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 export default function RoomDetailsPage() {
   const router = useRouter();
-  const { rooms: numberOfRooms, totalRentAmount } = router.query;
+  const { rooms: numberOfRoomsString, totalRentAmountQuery } = router.query;
 
-  function getStringValue(value: string | string[] | undefined): string {
-    if (typeof value === "undefined") {
-      return "";
-    } else if (Array.isArray(value)) {
-      return value[0];
-    } else {
-      return value;
-    }
-  }
+  const totalRentAmount = Number(totalRentAmountQuery);
+  const numberOfRooms = Number(numberOfRoomsString);
 
-  const rooms = new Array(Number(numberOfRooms)).fill({
-    roomCost: Number(totalRentAmount) / Number(numberOfRooms),
+  const rooms = new Array(numberOfRooms).fill({
+    roomCost: totalRentAmount / numberOfRooms,
     roomName: "",
     roomSize: "100",
   });
 
-  const calculateCostPerRoom = (rooms: RoomsProps[], totalRent: string) => {
-    {
-      return rooms.map((room) => ({
-        ...room,
-        roomCost:
-          (Number(totalRent) * Number(room.roomSize)) / totalSquareFootage,
-      }));
-    }
-  };
-
   const [roomProps, setRoomProps] = useState(rooms);
-  const [totalSquareFootage, setTotalSquareFootage] = useState(
-    calculateTotalSquareFootage(rooms)
-  );
+
+  const { totalSquareFootage, roomPropsWithTotalRent } = useMemo(() => {
+    const totalSquareFootage = calculateTotalSquareFootage(roomProps);
+    const roomPropsWithTotalRent = roomProps.map((room) => ({
+      ...room,
+      roomCost: (totalRentAmount * Number(room.roomSize)) / totalSquareFootage,
+    }));
+    return { totalSquareFootage, roomPropsWithTotalRent };
+  }, [roomProps, totalRentAmount]);
 
   const updateRoomProps = (updatedData: RoomUpdateProps, index: number) => {
     const updatedRoomProps = [...roomProps];
     updatedRoomProps[index] = { ...updatedRoomProps[index], ...updatedData };
-    const roomPropsWithTotalRent = calculateCostPerRoom(
-      updatedRoomProps,
-      getStringValue(totalRentAmount)
-    );
-    console.log(roomPropsWithTotalRent);
-    setRoomProps(roomPropsWithTotalRent);
-    const totalSquareFootage = calculateTotalSquareFootage(updatedRoomProps);
-    setTotalSquareFootage(totalSquareFootage);
+    setRoomProps(updatedRoomProps);
   };
 
   return (
     <Page title="Rent Calculator">
       <div>Room Details</div>
       <div className="flex flex-wrap justify-center">
-        {roomProps.map(({ roomCost, roomName, roomSize }, index) => (
-          <RoomCard
-            key={index}
-            roomSize={roomSize}
-            roomName={roomName}
-            roomCost={roomCost}
-            handleChange={(updatedData) => updateRoomProps(updatedData, index)}
-          />
-        ))}
+        {roomPropsWithTotalRent.map(
+          ({ roomCost, roomName, roomSize }, index) => (
+            <RoomCard
+              key={index}
+              roomSize={roomSize}
+              roomName={roomName}
+              roomCost={roomCost}
+              handleChange={(updatedData) =>
+                updateRoomProps(updatedData, index)
+              }
+            />
+          )
+        )}
       </div>
       <div className="flex flex-wrap justify-center">{`Total Square Footage: ${totalSquareFootage}`}</div>
-      <div className="flex flex-wrap justify-center">{`Total Cost: ${totalRentAmount}`}</div>
+      <div className="flex flex-wrap justify-center">{`Total Cost: ${totalRentAmount.toFixed(
+        2
+      )}`}</div>
     </Page>
   );
 }

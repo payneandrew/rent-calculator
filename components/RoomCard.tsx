@@ -61,7 +61,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
           </li>
           <li className="pt-2">
             <span className="pr-2">Cost:</span>
-            <label>{`$${roomCost}`}</label>
+            <label>{`$${roomCost.toFixed(2)}`}</label>
           </li>
         </ul>
       </div>
