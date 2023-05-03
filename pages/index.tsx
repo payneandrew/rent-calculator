@@ -39,6 +39,7 @@ export default function Home() {
             options={maxRooms}
           />
         </label>
+        <br />
         <Button>Next Step</Button>
       </form>
     </Page>

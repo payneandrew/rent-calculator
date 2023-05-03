@@ -1,7 +1,7 @@
 import Page from "@/components/Page";
 import RoomCard from "@/components/RoomCard";
 import { RoomUpdateProps } from "@/types/rooms";
-import { calculateTotalSquareFootage } from "@/utils/helpers/calculateRentPerSquareFoot";
+import { calculateTotalSquareFootage } from "@/utils/helpers/rentCalculator";
 import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
 
