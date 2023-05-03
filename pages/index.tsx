@@ -23,12 +23,12 @@ export default function Home() {
     <Page>
       <form onSubmit={handleSubmit}>
         <label>
-          Enter the total rent: ${" "}
+          Enter the total rent: $
           <Input
             type="number"
             value={totalRentAmount}
             onChange={(event) => setTotalRentAmount(event.target.value)}
-          ></Input>
+          />
         </label>
         <br />
         <label>
@@ -37,10 +37,8 @@ export default function Home() {
             value={rooms}
             onChange={(event) => setRooms(parseInt(event.target.value))}
             options={maxRooms}
-          ></Select>
+          />
         </label>
-        <br />
-        <p></p>
         <Button>Next Step</Button>
       </form>
     </Page>
