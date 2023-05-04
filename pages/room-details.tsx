@@ -1,9 +1,11 @@
 import Page from "@/components/Page";
 import RoomCard from "@/components/RoomCard";
-import { RoomUpdateProps } from "@/types/rooms";
+import { BathroomSize, RoomUpdateProps } from "@/types/rooms";
 import { calculateTotalSquareFootage } from "@/utils/helpers/rentCalculator";
 import { useRouter } from "next/router";
-import { useMemo, useState } from "react";
+import { useState } from "react";
+
+// create types for roomSize, bathroomSize
 
 export default function RoomDetailsPage() {
   const router = useRouter();
@@ -19,24 +21,22 @@ export default function RoomDetailsPage() {
       roomCost: totalRentAmount / numberOfRooms,
       roomName: "",
       roomSize: 100,
+      bathroomSize: BathroomSize.None,
     });
   }
 
-  const [rooms, setRoomProps] = useState(intialRooms);
+  const [rooms, setRooms] = useState(intialRooms);
 
-  const { totalSquareFootage, roomWithUpdatedRent } = useMemo(() => {
-    const totalSquareFootage = calculateTotalSquareFootage(rooms);
-    const roomWithUpdatedRent = rooms.map((room) => ({
-      ...room,
-      roomCost: (totalRentAmount * room.roomSize) / totalSquareFootage,
-    }));
-    return { totalSquareFootage, roomWithUpdatedRent };
-  }, [rooms, totalRentAmount]);
+  const totalSquareFootage = calculateTotalSquareFootage(rooms);
+  const roomWithUpdatedRent = rooms.map((room) => ({
+    ...room,
+    roomCost: (totalRentAmount * room.roomSize) / totalSquareFootage,
+  }));
 
   const updateRoom = (updatedData: RoomUpdateProps, index: number) => {
     const updatedRoomProps = [...rooms];
     updatedRoomProps[index] = { ...updatedRoomProps[index], ...updatedData };
-    setRoomProps(updatedRoomProps);
+    setRooms(updatedRoomProps);
   };
 
   return (
@@ -47,15 +47,18 @@ export default function RoomDetailsPage() {
         2
       )}`}</p>
       <div className="flex flex-wrap justify-center">
-        {roomWithUpdatedRent.map(({ roomCost, roomName, roomSize }, roomId) => (
-          <RoomCard
-            key={roomId}
-            roomSize={roomSize}
-            roomName={roomName}
-            roomCost={roomCost}
-            handleChange={(updatedData) => updateRoom(updatedData, roomId)}
-          />
-        ))}
+        {roomWithUpdatedRent.map(
+          ({ roomCost, roomName, roomSize, bathroomSize }, index) => (
+            <RoomCard
+              key={index}
+              roomSize={roomSize}
+              roomName={roomName}
+              roomCost={roomCost}
+              bathroomSize={bathroomSize}
+              handleChange={(updatedData) => updateRoom(updatedData, index)}
+            />
+          )
+        )}
       </div>
     </Page>
   );

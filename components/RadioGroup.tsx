@@ -1,8 +1,8 @@
 import React from "react";
 
 interface RadioGroupProps {
-  options: { value: number; label: string }[];
-  value: number;
+  options: { value: number | string; label: string }[];
+  value: number | string;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 

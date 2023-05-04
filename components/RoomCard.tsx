@@ -1,21 +1,25 @@
-import { RoomUpdateProps } from "@/types/rooms";
+import {
+  BathroomSize,
+  RoomUpdateProps,
+  roomSizeRadioGroup,
+} from "@/types/rooms";
 import Input from "./Input/Input";
 import RadioGroup from "./RadioGroup";
 
-const checkboxes = [
-  { label: "Tiny (50 sq ft)", value: 50 },
-  { label: "Small (65 sq ft)", value: 65 },
-  { label: "A bit Small (80 sq ft)", value: 80 },
-  { label: "Medium (100 sq ft)", value: 100 },
-  { label: "Generous (125 sq ft)", value: 125 },
-  { label: "Large (160 sq ft)", value: 160 },
-  { label: "Enormous (200 sq ft)", value: 200 },
-];
+const bathroomSizeRadioGroup = Object.entries(BathroomSize).map(
+  ([label, value]) => ({ label, value })
+);
+
+// const roomSizeRadioGroup = Object.entries(RoomSize).map(([label, value]) => ({
+//   label,
+//   value,
+// }));
 
 interface RoomCardProps {
   roomName: string;
   roomCost: number;
   roomSize: number;
+  bathroomSize: BathroomSize;
   handleChange: (props: RoomUpdateProps) => void;
 }
 
@@ -23,6 +27,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
   roomSize,
   roomName,
   roomCost,
+  bathroomSize,
   handleChange,
 }) => {
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,6 +36,10 @@ const RoomCard: React.FC<RoomCardProps> = ({
 
   const handleSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     handleChange({ roomSize: parseInt(event.target.value) });
+  };
+
+  const handleBathroomChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    handleChange({ bathroomSize: event.target.value });
   };
 
   return (
@@ -44,9 +53,17 @@ const RoomCard: React.FC<RoomCardProps> = ({
           <div className="flex flex-col">
             <h2 className="font-bold text-lg">Room Size</h2>
             <RadioGroup
-              options={checkboxes}
+              options={roomSizeRadioGroup}
               value={roomSize}
               handleChange={handleSizeChange}
+            />
+          </div>
+          <div className="flex flex-col">
+            <h2 className="font-bold text-lg">Bathroom</h2>
+            <RadioGroup
+              options={bathroomSizeRadioGroup}
+              value={bathroomSize}
+              handleChange={handleBathroomChange}
             />
           </div>
           <div className="flex justify-between">
