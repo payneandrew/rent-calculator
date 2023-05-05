@@ -34,4 +34,5 @@ export interface RoomsProps {
   roomName: string;
   roomCost: number;
   roomSize: number;
+  bathroomSize: string;
 }

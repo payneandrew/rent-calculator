@@ -1,6 +1,6 @@
 import Page from "@/components/Page";
 import RoomCard from "@/components/RoomCard";
-import { BathroomSize, RoomUpdateProps } from "@/types/rooms";
+import { BathroomSize, RoomUpdateProps, RoomsProps } from "@/types/rooms";
 import { calculateTotalSquareFootage } from "@/utils/helpers/rentCalculator";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -27,13 +27,31 @@ export default function RoomDetailsPage() {
 
   const [rooms, setRooms] = useState(intialRooms);
 
+  const bathroomSizeCost = (roomCost: number, bathroomSize: string) => {
+    switch (bathroomSize) {
+      case BathroomSize.None:
+        return roomCost * 1;
+      case BathroomSize.Half:
+        return roomCost * 1.1;
+      case BathroomSize.Full:
+        return roomCost * 1.2;
+    }
+  };
+
   const totalSquareFootage = calculateTotalSquareFootage(rooms);
-  const roomWithUpdatedRent = rooms.map((room) => ({
-    ...room,
-    roomCost: (totalRentAmount * room.roomSize) / totalSquareFootage,
-  }));
+  const roomWithUpdatedRent = rooms.map((room: RoomsProps) => {
+    const baseRoomCost = (totalRentAmount * room.roomSize) / totalSquareFootage;
+    const adjustedRoomCost = bathroomSizeCost(baseRoomCost, room.bathroomSize);
+    console.log(adjustedRoomCost);
+
+    return {
+      ...room,
+      roomCost: adjustedRoomCost,
+    };
+  });
 
   const updateRoom = (updatedData: RoomUpdateProps, index: number) => {
+    console.log(updatedData, index);
     const updatedRoomProps = [...rooms];
     updatedRoomProps[index] = { ...updatedRoomProps[index], ...updatedData };
     setRooms(updatedRoomProps);
