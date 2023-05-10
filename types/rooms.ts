@@ -24,15 +24,9 @@ export enum BathroomSize {
   Full = "full",
 }
 
-export interface RoomUpdateProps {
-  roomName?: string;
-  roomSize?: number;
-  bathroomSize?: string;
-}
-
-export interface RoomsProps {
+export interface RoomProps {
   roomName: string;
   roomCost: number;
   roomSize: number;
-  bathroomSize: string;
+  bathroomSize: BathroomSize;
 }

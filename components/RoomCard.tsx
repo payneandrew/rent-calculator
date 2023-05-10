@@ -1,26 +1,23 @@
-import {
-  BathroomSize,
-  RoomUpdateProps,
-  roomSizeRadioGroup,
-} from "@/types/rooms";
+import { BathroomSize, RoomProps, roomSizeRadioGroup } from "@/types/rooms";
+import currency from "currency.js";
 import Input from "./Input/Input";
 import RadioGroup from "./RadioGroup";
 
 const bathroomSizeRadioGroup = Object.entries(BathroomSize).map(
   ([label, value]) => ({ label, value })
 );
+console.log(bathroomSizeRadioGroup);
 
-// const roomSizeRadioGroup = Object.entries(RoomSize).map(([label, value]) => ({
-//   label,
-//   value,
-// }));
+// const roomSizeRadioGroup = Object.entries(RoomSize)
+//   .filter(([label]) => typeof label !== "number")
+//   .map(([label, value]) => ({
+//     label,
+//     value,
+//   }));
+// console.log(roomSizeRadioGroup);
 
-interface RoomCardProps {
-  roomName: string;
-  roomCost: number;
-  roomSize: number;
-  bathroomSize: BathroomSize;
-  handleChange: (props: RoomUpdateProps) => void;
+interface RoomCardProps extends RoomProps {
+  handleChange: (props: Partial<RoomProps>) => void;
 }
 
 const RoomCard: React.FC<RoomCardProps> = ({
@@ -39,7 +36,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
   };
 
   const handleBathroomChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange({ bathroomSize: event.target.value });
+    handleChange({ bathroomSize: event.target.value as BathroomSize });
   };
 
   return (
@@ -68,7 +65,9 @@ const RoomCard: React.FC<RoomCardProps> = ({
           </div>
           <div className="flex justify-between">
             <h2 className="font-bold text-lg">Cost</h2>
-            <span className="text-gray-700">{`$${roomCost.toFixed(2)}`}</span>
+            <span className="text-gray-700">{`$${currency(roomCost, {
+              errorOnInvalid: true,
+            })}`}</span>
           </div>
         </div>
       </div>
