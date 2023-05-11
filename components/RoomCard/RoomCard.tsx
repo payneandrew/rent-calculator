@@ -1,5 +1,5 @@
-import { BathroomSize, RoomProps, roomSizeRadioGroup } from "@/types/rooms";
-import currency from "currency.js";
+import { BathroomSize, RoomProps, RoomSize } from "@/types/rooms";
+import { convertToCurrency } from "@/utils/helpers/currencyHelper/currencyHelper";
 import Input from "../Input/Input";
 import RadioGroup from "../RadioGroup";
 
@@ -7,13 +7,12 @@ const bathroomSizeRadioGroup = Object.entries(BathroomSize).map(
   ([label, value]) => ({ label, value })
 );
 
-// const roomSizeRadioGroup = Object.entries(RoomSize)
-//   .filter(([label]) => typeof label !== "number")
-//   .map(([label, value]) => ({
-//     label,
-//     value,
-//   }));
-// console.log(roomSizeRadioGroup);
+export const roomSizeRadioGroup = Object.entries(RoomSize)
+  .filter(([key]) => isNaN(Number(key))) // Filter out the numeric key-value pairs
+  .map(([key, value]) => ({
+    label: `${key} (${value} sq ft)`,
+    value: Number(value),
+  }));
 
 interface RoomCardProps extends RoomProps {
   handleChange: (props: Partial<RoomProps>) => void;
@@ -64,9 +63,9 @@ const RoomCard: React.FC<RoomCardProps> = ({
           </div>
           <div className="flex justify-between">
             <h2 className="font-bold text-lg">Cost</h2>
-            <span className="text-gray-700">{`$${currency(roomCost, {
-              errorOnInvalid: true,
-            })}`}</span>
+            <span className="text-gray-700">{`${convertToCurrency(
+              roomCost
+            )}`}</span>
           </div>
         </div>
       </div>

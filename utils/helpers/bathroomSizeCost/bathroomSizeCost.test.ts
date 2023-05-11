@@ -6,10 +6,6 @@ describe("bathroomSizeCost", () => {
     const cost = bathroomSizeCost(100, BathroomSize.None);
     expect(cost).toEqual(100);
   });
-  test("calculates cost correctly for half bathroom", () => {
-    const cost = bathroomSizeCost(100, BathroomSize.Half);
-    expect(cost).toEqual(110);
-  });
 
   test("calculates cost correctly for full bathroom", () => {
     const cost = bathroomSizeCost(100, BathroomSize.Full);

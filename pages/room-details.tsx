@@ -2,8 +2,8 @@ import Page from "@/components/Page";
 import RoomCard from "@/components/RoomCard/RoomCard";
 import { BathroomSize, RoomProps } from "@/types/rooms";
 import { bathroomSizeCost } from "@/utils/helpers/bathroomSizeCost/bathroomSizeCost";
+import { convertToCurrency } from "@/utils/helpers/currencyHelper/currencyHelper";
 import { calculateTotalSquareFootage } from "@/utils/helpers/rentCalculator/rentCalculator";
-import currency from "currency.js";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -45,13 +45,11 @@ export default function RoomDetailsPage() {
     setRooms(updatedRoomProps);
   };
 
-  // instead of directly calling currency, we should hide behind a function using currency.js
-
   return (
     <Page>
       <h1 className="text-2xl text-center font-bold mb-4">Room Details</h1>
       <p className="text-center">{`Total Square Footage: ${totalSquareFootage}`}</p>
-      <p className="text-center">{`Total Cost: $${currency(
+      <p className="text-center">{`Total Cost: ${convertToCurrency(
         totalRentAmount
       )}`}</p>
       <div className="flex flex-wrap justify-center">
