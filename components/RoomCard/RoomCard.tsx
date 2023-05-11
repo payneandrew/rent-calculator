@@ -1,12 +1,11 @@
 import { BathroomSize, RoomProps, roomSizeRadioGroup } from "@/types/rooms";
 import currency from "currency.js";
-import Input from "./Input/Input";
-import RadioGroup from "./RadioGroup";
+import Input from "../Input/Input";
+import RadioGroup from "../RadioGroup";
 
 const bathroomSizeRadioGroup = Object.entries(BathroomSize).map(
   ([label, value]) => ({ label, value })
 );
-console.log(bathroomSizeRadioGroup);
 
 // const roomSizeRadioGroup = Object.entries(RoomSize)
 //   .filter(([label]) => typeof label !== "number")

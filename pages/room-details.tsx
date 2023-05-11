@@ -1,12 +1,11 @@
 import Page from "@/components/Page";
-import RoomCard from "@/components/RoomCard";
+import RoomCard from "@/components/RoomCard/RoomCard";
 import { BathroomSize, RoomProps } from "@/types/rooms";
-import { calculateTotalSquareFootage } from "@/utils/helpers/rentCalculator";
+import { bathroomSizeCost } from "@/utils/helpers/bathroomSizeCost/bathroomSizeCost";
+import { calculateTotalSquareFootage } from "@/utils/helpers/rentCalculator/rentCalculator";
 import currency from "currency.js";
 import { useRouter } from "next/router";
 import { useState } from "react";
-
-// create types for roomSize, bathroomSize
 
 export default function RoomDetailsPage() {
   const router = useRouter();
@@ -27,17 +26,6 @@ export default function RoomDetailsPage() {
   }
 
   const [rooms, setRooms] = useState(intialRooms);
-
-  const bathroomSizeCost = (roomCost: number, bathroomSize: BathroomSize) => {
-    switch (bathroomSize) {
-      case BathroomSize.None:
-        return roomCost * 1;
-      case BathroomSize.Half:
-        return roomCost * 1.1;
-      case BathroomSize.Full:
-        return roomCost * 1.2;
-    }
-  };
 
   const totalSquareFootage = calculateTotalSquareFootage(rooms);
   const roomWithUpdatedRent = rooms.map((room: RoomProps) => {
