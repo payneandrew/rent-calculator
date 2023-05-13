@@ -1,9 +1,9 @@
 import Button from "@/components/Button";
+import MapContainer from "@/components/MapContainer/MapContainer";
 import Page from "@/components/Page";
-import axios from "axios";
 import { useState } from "react";
-
-const apiUrl = "https://fakerapi.it/api/v1/addresses?_quantity=1";
+import { TailSpin } from "react-loader-spinner";
+import { getAddress } from "../api/address";
 
 interface Address {
   id: number;
@@ -22,39 +22,56 @@ export default function RentByLocation() {
   const [address, setAddress] = useState<Address[]>([
     {
       id: 1,
-      street: "693 Kemmer Track Suite 821",
-      streetName: "Estel Dale",
-      buildingNumber: "90826",
-      city: "New Tremaineside",
-      zipcode: "31728",
-      country: "Israel",
-      county_code: "LU",
-      latitude: 53.098425,
-      longitude: 72.974436,
+      street: "",
+      streetName: "",
+      buildingNumber: "",
+      city: "",
+      zipcode: "",
+      country: "",
+      county_code: "",
+      latitude: 0,
+      longitude: 0,
     },
   ]);
-
-  const fetchAddress = async () => {
-    try {
-      await axios.get(apiUrl).then((response) => {});
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [isLoading, setLoading] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetchAddress();
+    setLoading(true);
+    setShowDetails(false);
+    getAddress().then((response) => {
+      setAddress(response);
+      setLoading(false);
+      setShowDetails(true);
+    });
   };
 
   return (
     <Page>
       <form onSubmit={handleSubmit}>
-        <Button type="submit">Submit</Button>
         <div>
-          {address && address.length > 0 && (
+          <label>
+            Press this button for a new address
+            <Button type="submit">Submit</Button>
+          </label>
+        </div>
+        <div>
+          {isLoading && (
+            <TailSpin
+              height="50"
+              width="50"
+              color="#4fa94d"
+              ariaLabel="tail-spin-loading"
+              radius="1"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+            />
+          )}
+          {showDetails && (
             <div>
-              <h1>Address Details:</h1>
+              <h1 className="flex font-bold">Address Details</h1>
               <p>Street: {address[0].street}</p>
               <p>City: {address[0].city}</p>
               <p>Country: {address[0].country}</p>
@@ -62,6 +79,9 @@ export default function RentByLocation() {
               <p>Longitude: {address[0].longitude}</p>
             </div>
           )}
+        </div>
+        <div>
+          <MapContainer />
         </div>
       </form>
     </Page>
