@@ -29,8 +29,8 @@ export default function RentByLocation() {
       zipcode: "",
       country: "",
       county_code: "",
-      latitude: 0,
-      longitude: 0,
+      latitude: 38.029305,
+      longitude: -78.476677,
     },
   ]);
   const [isLoading, setLoading] = useState(false);
@@ -51,18 +51,14 @@ export default function RentByLocation() {
     lat: address[0].latitude,
     lng: address[0].longitude,
   };
-  console.log(markerPosition);
-  //const markerPosition = { lat: 38.029305, lng: -78.476677 };
   return (
     <Page>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            Press this button for a new address
-            <Button type="submit">Submit</Button>
-          </label>
+        <div className="flex items-center">
+          <span className="mr-4">Press this button for a new address</span>
+          <Button type="submit">Submit</Button>
         </div>
-        <div>
+        <div className="flex justify-end">
           {isLoading && (
             <TailSpin
               height="50"
@@ -86,11 +82,11 @@ export default function RentByLocation() {
             </div>
           )}
         </div>
-        <div>
+        <div className="pt-8">
           <MapContainer
             markerPosition={markerPosition}
             defaultCenter={markerPosition}
-          ></MapContainer>
+          />
         </div>
       </form>
     </Page>
