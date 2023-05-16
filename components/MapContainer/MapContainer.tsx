@@ -1,20 +1,28 @@
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 
-const MapContainer = () => {
+interface MarkerPosition {
+  lat: number;
+  lng: number;
+}
+
+interface MapContainerProps {
+  defaultCenter?: MarkerPosition;
+  markerPosition: MarkerPosition;
+}
+
+const MapContainer: React.FC<MapContainerProps> = ({
+  defaultCenter = { lat: 38.029305, lng: -78.476677 },
+  markerPosition,
+}) => {
   const mapStyles = {
     height: "100vh",
     width: "100%",
   };
 
-  const defaultCenter = {
-    lat: 40.748817,
-    lng: -73.985428,
-  };
-
   return (
-    <LoadScript googleMapsApiKey={process.env.GOOGLE_MAPS_API_KEY!}>
+    <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
       <GoogleMap mapContainerStyle={mapStyles} zoom={13} center={defaultCenter}>
-        <Marker position={defaultCenter} />
+        <Marker position={markerPosition} />
       </GoogleMap>
     </LoadScript>
   );

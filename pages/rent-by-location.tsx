@@ -47,6 +47,12 @@ export default function RentByLocation() {
     });
   };
 
+  const markerPosition = {
+    lat: address[0].latitude,
+    lng: address[0].longitude,
+  };
+  console.log(markerPosition);
+  //const markerPosition = { lat: 38.029305, lng: -78.476677 };
   return (
     <Page>
       <form onSubmit={handleSubmit}>
@@ -81,7 +87,10 @@ export default function RentByLocation() {
           )}
         </div>
         <div>
-          <MapContainer />
+          <MapContainer
+            markerPosition={markerPosition}
+            defaultCenter={markerPosition}
+          ></MapContainer>
         </div>
       </form>
     </Page>
