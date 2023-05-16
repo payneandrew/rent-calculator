@@ -16,15 +16,7 @@ export default function RoomDetailsPage() {
   const totalRentAmount = Number(totalRentAmountQuery);
   const numberOfRooms = Number(numberOfRoomsString);
 
-  if (
-    numberOfRoomsString === undefined ||
-    isNaN(numberOfRooms) ||
-    numberOfRooms === 0
-  ) {
-    throw new Error(
-      "Invalid input. Number of rooms must be a valid number and greater than zero."
-    );
-  } else {
+  if (numberOfRoomsString != undefined) {
     initialRooms = new Array(numberOfRooms).fill({
       roomCost: totalRentAmount / numberOfRooms,
       roomName: "",
