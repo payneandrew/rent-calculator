@@ -4,7 +4,6 @@ import Page from "@/components/Page";
 import Select from "@/components/Select";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
-require("./dotenv");
 
 export default function Home() {
   const router = useRouter();

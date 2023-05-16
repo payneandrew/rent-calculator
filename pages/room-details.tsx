@@ -11,13 +11,21 @@ export default function RoomDetailsPage() {
   const router = useRouter();
   const { rooms: numberOfRoomsString, totalRentAmountQuery } = router.query;
 
-  let intialRooms = [];
+  let initialRooms = [];
 
   const totalRentAmount = Number(totalRentAmountQuery);
   const numberOfRooms = Number(numberOfRoomsString);
 
-  if (numberOfRoomsString !== undefined) {
-    intialRooms = new Array(numberOfRooms).fill({
+  if (
+    numberOfRoomsString === undefined ||
+    isNaN(numberOfRooms) ||
+    numberOfRooms === 0
+  ) {
+    throw new Error(
+      "Invalid input. Number of rooms must be a valid number and greater than zero."
+    );
+  } else {
+    initialRooms = new Array(numberOfRooms).fill({
       roomCost: totalRentAmount / numberOfRooms,
       roomName: "",
       roomSize: 100,
@@ -25,7 +33,7 @@ export default function RoomDetailsPage() {
     });
   }
 
-  const [rooms, setRooms] = useState(intialRooms);
+  const [rooms, setRooms] = useState(initialRooms);
 
   const totalSquareFootage = calculateTotalSquareFootage(rooms);
   const roomWithUpdatedRent = rooms.map((room: RoomProps) => {
@@ -39,7 +47,6 @@ export default function RoomDetailsPage() {
   });
 
   const updateRoom = (updatedData: Partial<RoomProps>, index: number) => {
-    console.log(updatedData, index);
     const updatedRoomProps = [...rooms];
     updatedRoomProps[index] = { ...updatedRoomProps[index], ...updatedData };
     setRooms(updatedRoomProps);
