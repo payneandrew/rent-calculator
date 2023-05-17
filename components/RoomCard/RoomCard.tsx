@@ -1,5 +1,5 @@
 import { BathroomSize, RoomProps, RoomSize } from "@/types/rooms";
-import { convertToCurrency } from "@/utils/helpers/currencyHelper/currencyHelper";
+import { convertToCurrency } from "@/utils/currencyHelper/currencyHelper";
 import Input from "../Input/Input";
 import RadioGroup from "../RadioGroup";
 

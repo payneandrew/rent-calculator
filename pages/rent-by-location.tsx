@@ -9,7 +9,7 @@ import { useMutation, useQueryClient } from "react-query";
 
 export default function RentByLocation() {
   const queryClient = useQueryClient();
-  const { mutate, isLoading } = useMutation(getAddress, {
+  const { mutate, isLoading, isError } = useMutation(getAddress, {
     onSuccess: async (address) => {
       setAddress(address);
       await queryClient.invalidateQueries(["address"]);

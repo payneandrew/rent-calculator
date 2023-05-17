@@ -1,5 +1,5 @@
 import { BathroomSize } from "@/types/rooms";
-import { bathroomSizeCost } from "./bathroomSizeCost";
+import { bathroomSizeCost } from ".";
 
 describe("bathroomSizeCost", () => {
   test("calculates cost correctly for no bathroom", () => {

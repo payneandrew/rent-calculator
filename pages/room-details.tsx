@@ -1,9 +1,9 @@
 import Page from "@/components/Page";
 import RoomCard from "@/components/RoomCard/RoomCard";
 import { BathroomSize, RoomProps } from "@/types/rooms";
-import { bathroomSizeCost } from "@/utils/helpers/bathroomSizeCost/bathroomSizeCost";
-import { convertToCurrency } from "@/utils/helpers/currencyHelper/currencyHelper";
-import { calculateTotalSquareFootage } from "@/utils/helpers/rentCalculator/rentCalculator";
+import { bathroomSizeCost } from "@/utils/bathroomSizeCost";
+import { convertToCurrency } from "@/utils/currencyHelper/currencyHelper";
+import { calculateTotalSquareFootage } from "@/utils/rentCalculator/rentCalculator";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
