@@ -2,8 +2,8 @@ import Page from "@/components/Page";
 import RoomCard from "@/components/RoomCard/RoomCard";
 import { BathroomSize, RoomProps } from "@/types/rooms";
 import { bathroomSizeCost } from "@/utils/bathroomSizeCost";
-import { convertToCurrency } from "@/utils/currencyHelper/currencyHelper";
-import { calculateTotalSquareFootage } from "@/utils/rentCalculator/rentCalculator";
+import { format } from "@/utils/currencyHelper";
+import { calculateTotalSquareFootage } from "@/utils/rentCalculator";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -48,9 +48,7 @@ export default function RoomDetailsPage() {
     <Page>
       <h1 className="text-2xl text-center font-bold mb-4">Room Details</h1>
       <p className="text-center">{`Total Square Footage: ${totalSquareFootage}`}</p>
-      <p className="text-center">{`Total Cost: ${convertToCurrency(
-        totalRentAmount
-      )}`}</p>
+      <p className="text-center">{`Total Cost: ${format(totalRentAmount)}`}</p>
       <div className="flex flex-wrap justify-center">
         {roomWithUpdatedRent.map(
           ({ roomCost, roomName, roomSize, bathroomSize }, index) => (

@@ -1,5 +1,5 @@
 import { BathroomSize, RoomProps, RoomSize } from "@/types/rooms";
-import { convertToCurrency } from "@/utils/currencyHelper/currencyHelper";
+import { format } from "@/utils/currencyHelper";
 import Input from "../Input/Input";
 import RadioGroup from "../RadioGroup";
 
@@ -63,9 +63,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
           </div>
           <div className="flex justify-between">
             <h2 className="font-bold text-lg">Cost</h2>
-            <span className="text-gray-700">{`${convertToCurrency(
-              roomCost
-            )}`}</span>
+            <span className="text-gray-700">{`${format(roomCost)}`}</span>
           </div>
         </div>
       </div>
