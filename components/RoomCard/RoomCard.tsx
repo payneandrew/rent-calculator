@@ -7,7 +7,7 @@ const bathroomSizeRadioGroup = Object.entries(BathroomSize).map(
   ([label, value]) => ({ label, value })
 );
 
-const roomSizeRadioGroup = Object.entries(RoomSize)
+export const roomSizeRadioGroup = Object.entries(RoomSize)
   .filter(([key]) => isNaN(Number(key))) // Filter out the numeric key-value pairs
   .map(([key, value]) => ({
     label: `${key} (${value} sq ft)`,
