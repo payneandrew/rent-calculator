@@ -1,24 +1,21 @@
+import { getAddress } from "@/api/address";
 import Button from "@/components/Button";
 import MapContainer from "@/components/MapContainer/MapContainer";
 import Page from "@/components/Page";
+import { Address } from "@/types/address";
 import { useState } from "react";
 import { TailSpin } from "react-loader-spinner";
-import { getAddress } from "../api/address";
-
-interface Address {
-  id: number;
-  street: string;
-  streetName: string;
-  buildingNumber: string;
-  city: string;
-  zipcode: string;
-  country: string;
-  county_code: string;
-  latitude: number;
-  longitude: number;
-}
+import { useMutation, useQueryClient } from "react-query";
 
 export default function RentByLocation() {
+  const queryClient = useQueryClient();
+  const { mutate, isLoading } = useMutation(getAddress, {
+    onSuccess: async (address) => {
+      setAddress(address);
+      await queryClient.invalidateQueries(["address"]);
+    },
+  });
+
   const [address, setAddress] = useState<Address[]>([
     {
       id: 1,
@@ -33,18 +30,10 @@ export default function RentByLocation() {
       longitude: -78.476677,
     },
   ]);
-  const [isLoading, setLoading] = useState(false);
-  const [showDetails, setShowDetails] = useState(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setLoading(true);
-    setShowDetails(false);
-    getAddress().then((response) => {
-      setAddress(response);
-      setLoading(false);
-      setShowDetails(true);
-    });
+    mutate();
   };
 
   const markerPosition = {
@@ -53,12 +42,14 @@ export default function RentByLocation() {
   };
   return (
     <Page>
-      <form onSubmit={handleSubmit}>
-        <div className="flex items-center">
-          <span className="mr-4">Press this button for a new address</span>
+      <form onSubmit={handleSubmit} className="space-y-8">
+        <div className="flex items-center space-x-4">
+          <span className="text-lg text-gray-800">
+            Press this button for a new address
+          </span>
           <Button type="submit">Submit</Button>
         </div>
-        <div className="flex justify-end">
+        <div className="flex flex-col justify-end space-y-4 mt-auto">
           {isLoading && (
             <TailSpin
               height="50"
@@ -71,8 +62,8 @@ export default function RentByLocation() {
               visible={true}
             />
           )}
-          {showDetails && (
-            <div>
+          {!isLoading && (
+            <div className="space-y-1">
               <h1 className="flex font-bold">Address Details</h1>
               <p>Street: {address[0].street}</p>
               <p>City: {address[0].city}</p>
@@ -82,7 +73,7 @@ export default function RentByLocation() {
             </div>
           )}
         </div>
-        <div className="pt-8">
+        <div>
           <MapContainer
             markerPosition={markerPosition}
             defaultCenter={markerPosition}
