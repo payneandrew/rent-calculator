@@ -1,3 +1,4 @@
+import Head from "next/head";
 import NavBar from "../NavBar";
 
 interface PageProps {
@@ -8,9 +9,9 @@ export default function Page({ children }: PageProps) {
   return (
     <>
       <main className="px-6 py-4">
-        <header>
+        <Head>
           <NavBar></NavBar>
-        </header>
+        </Head>
         {children}
       </main>
     </>

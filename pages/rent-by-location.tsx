@@ -15,7 +15,7 @@ export default function RentByLocation() {
       await queryClient.invalidateQueries(["address"]);
     },
   });
-
+  const [showDetails, setShowDetails] = useState(false);
   const [address, setAddress] = useState<Address[]>([
     {
       id: 1,
@@ -34,6 +34,7 @@ export default function RentByLocation() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     mutate();
+    setShowDetails(true);
   };
 
   const markerPosition = {
@@ -45,7 +46,7 @@ export default function RentByLocation() {
       <form onSubmit={handleSubmit} className="space-y-8">
         <div className="flex items-center space-x-4">
           <span className="text-lg text-gray-800">
-            Press this button for a new address
+            Press this button for an address
           </span>
           <Button type="submit">Submit</Button>
         </div>
@@ -62,7 +63,7 @@ export default function RentByLocation() {
               visible={true}
             />
           )}
-          {!isLoading && (
+          {!isLoading && showDetails && (
             <div className="space-y-1">
               <h1 className="flex font-bold">Address Details</h1>
               <p>Street: {address[0].street}</p>
