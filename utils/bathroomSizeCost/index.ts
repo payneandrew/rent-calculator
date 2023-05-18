@@ -1,4 +1,5 @@
 import { BathroomSize } from "@/types/rooms";
+import { multiply } from "../currencyHelper";
 
 export const bathroomSizeCost = (
   roomCost: number,
@@ -6,10 +7,10 @@ export const bathroomSizeCost = (
 ) => {
   switch (bathroomSize) {
     case BathroomSize.None:
-      return roomCost * 1;
+      return multiply(roomCost, 1);
     case BathroomSize.Half:
-      return roomCost * 1.1;
+      return multiply(roomCost, 1.1);
     case BathroomSize.Full:
-      return roomCost * 1.2;
+      return multiply(roomCost, 1.2);
   }
 };

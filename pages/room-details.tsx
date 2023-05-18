@@ -1,5 +1,5 @@
 import Page from "@/components/Page";
-import RoomCard from "@/components/RoomCard/RoomCard";
+import RoomCard from "@/components/RoomCard";
 import { BathroomSize, RoomProps } from "@/types/rooms";
 import { bathroomSizeCost } from "@/utils/bathroomSizeCost";
 import { format } from "@/utils/currencyHelper";

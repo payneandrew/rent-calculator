@@ -1,6 +1,6 @@
 import { getAddress } from "@/api/address";
 import Button from "@/components/Button";
-import MapContainer from "@/components/MapContainer/MapContainer";
+import MapContainer from "@/components/MapContainer";
 import Page from "@/components/Page";
 import { Address } from "@/types/address";
 import { useState } from "react";

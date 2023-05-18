@@ -1,6 +1,6 @@
 import { BathroomSize, RoomProps, RoomSize } from "@/types/rooms";
 import { format } from "@/utils/currencyHelper";
-import Input from "../Input/Input";
+import Input from "../Input";
 import RadioGroup from "../RadioGroup";
 
 const bathroomSizeRadioGroup = Object.entries(BathroomSize).map(

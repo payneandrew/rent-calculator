@@ -6,8 +6,14 @@ export const format = (value: number) => {
   }).format();
 };
 
-// add
+export const add = (value1: number, value2: number) => {
+  return currency(value1, {
+    errorOnInvalid: true,
+  }).add(value2).value;
+};
 
-// multiply
-
-// think of this file as a currency helper that I didn't know its using currency.js
+export const multiply = (value1: number, value2: number) => {
+  return currency(value1, {
+    errorOnInvalid: true,
+  }).multiply(value2).value;
+};

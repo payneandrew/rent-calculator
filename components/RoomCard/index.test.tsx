@@ -2,7 +2,7 @@ import { BathroomSize } from "@/types/rooms";
 import { faker } from "@faker-js/faker";
 import "@testing-library/jest-dom/extend-expect";
 import { fireEvent, render, screen } from "@testing-library/react";
-import RoomCard from "./RoomCard";
+import RoomCard from ".";
 
 const { roomCost, roomName, roomSize, bathroomSize, handleChange } = {
   roomCost: 0,
