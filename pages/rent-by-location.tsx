@@ -1,10 +1,10 @@
 import { getAddress } from "@/api/address";
 import Button from "@/components/Button";
+import LoadingSpinner from "@/components/LoadingSpinner";
 import MapContainer from "@/components/MapContainer";
 import Page from "@/components/Page";
 import { Address } from "@/types/address";
 import { useState } from "react";
-import { TailSpin } from "react-loader-spinner";
 import { useMutation, useQueryClient } from "react-query";
 
 export default function RentByLocation() {
@@ -51,18 +51,7 @@ export default function RentByLocation() {
           <Button type="submit">Submit</Button>
         </div>
         <div className="flex flex-col justify-end space-y-4 mt-auto">
-          {isLoading && (
-            <TailSpin
-              height="50"
-              width="50"
-              color="#4fa94d"
-              ariaLabel="tail-spin-loading"
-              radius="1"
-              wrapperStyle={{}}
-              wrapperClass=""
-              visible={true}
-            />
-          )}
+          {isLoading && <LoadingSpinner />}
           {!isLoading && showDetails && (
             <div className="space-y-1">
               <h1 className="flex font-bold">Address Details</h1>
