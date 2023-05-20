@@ -74,12 +74,10 @@ export default function RentByLocation() {
             </div>
           )}
         </div>
-        <div>
-          <MapContainer
-            markerPosition={markerPosition}
-            defaultCenter={markerPosition}
-          />
-        </div>
+        <MapContainer
+          markerPosition={markerPosition}
+          defaultCenter={markerPosition}
+        />
       </form>
     </Page>
   );
